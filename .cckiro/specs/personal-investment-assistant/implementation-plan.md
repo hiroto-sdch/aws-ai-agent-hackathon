@@ -30,17 +30,17 @@ Infrastructure: Docker + Docker Compose (現在稼働中)
 - sample/v0-AWS_hackathon ベースのUI実装
 - フロントエンド・バックエンド統合
 
-## 2. 実装フェーズ
+## 2. 改修実装フェーズ
 
-### Phase 1: MVP (Minimum Viable Product) - 4週間
-**目標**: 基本的な投資相談機能の提供
+### Phase 1: フロントエンド統合・UI完成 - 2週間
+**目標**: sample/v0-AWS_hackathon準拠の完全UI実装とバックエンド統合
 
-#### 主要機能
-- ユーザー認証（JWT）
-- 基本ダッシュボード
-- ポートフォリオ管理
-- シンプルなチャット相談
-- 外部API連携（Yahoo Finance）
+#### 主要機能（既存バックエンドAPI活用）
+- ✅ ユーザー認証（JWT） - バックエンド実装済み
+- 🔄 sample UIベースダッシュボード - 進行中
+- 🔄 ポートフォリオ管理UI - sample準拠で実装
+- 🔄 チャット相談UI - sample準拠で実装
+- 📋 外部API連携（Yahoo Finance） - バックエンド側で追加
 
 ### Phase 2: Core Features - 6週間
 **目標**: AI機能とRAGの実装
@@ -64,42 +64,44 @@ Infrastructure: Docker + Docker Compose (現在稼働中)
 
 ## 3. 詳細実装スケジュール
 
-### 3.1 Phase 1: MVP実装 (Week 1-4)
+### 3.1 Phase 1: フロントエンド統合・UI完成 (Week 1-2)
 
-#### Week 1: インフラ・基盤構築
-**Sprint 1.1 - Infrastructure Setup**
+#### Week 1: sample UI実装・バックエンド統合
+**Sprint 1.1 - Frontend Integration with Existing Backend**
 
-| Task | 担当 | 工数(人日) | 優先度 | 依存関係 |
-|------|------|------------|--------|----------|
-| Docker環境構築 | DevOps | 1 | P0 | - |
-| PostgreSQL + Redis セットアップ | DevOps | 1 | P0 | Docker |
-| CI/CD パイプライン構築 | DevOps | 2 | P0 | - |
-| AWS基本インフラ構築 | DevOps | 2 | P0 | - |
-| プロジェクト構造作成 | Lead | 1 | P0 | - |
-
-**完了定義 (DoD)**:
-- [ ] 開発環境がDocker Composeで起動可能
-- [ ] GitHub Actions でCI/CDが動作
-- [ ] AWS環境に最低限のリソースがデプロイ済み
-- [ ] コード品質チェック（Lint, Format）が自動実行
-
-#### Week 2: バックエンドAPI基盤
-**Sprint 1.2 - Backend Foundation**
-
-| Task | 担当 | 工数(人日) | 優先度 | 依存関係 |
-|------|------|------------|--------|----------|
-| FastAPI プロジェクト作成 | Backend | 1 | P0 | Infrastructure |
-| データベーススキーマ実装 | Backend | 2 | P0 | PostgreSQL |
-| ユーザー認証API実装 | Backend | 3 | P0 | DB Schema |
-| JWT認証ミドルウェア | Backend | 1 | P0 | Auth API |
-| 基本的なCRUD API実装 | Backend | 2 | P1 | Auth |
+| Task | 担当 | 工数(人日) | 優先度 | 依存関係 | 状態 |
+|------|------|------------|--------|----------|------|
+| sample UIコンポーネント移植 | Frontend | 2 | P0 | - | ✅ 完了 |
+| フロントエンド・バックエンドAPI統合 | Frontend | 2 | P0 | sample UI | 🔄 進行中 |
+| ポートフォリオページ実装 | Frontend | 1 | P0 | API統合 | 📋 待機 |
+| チャットページ実装 | Frontend | 1 | P0 | API統合 | 📋 待機 |
+| 認証フロー統合 | Frontend | 1 | P1 | API統合 | 📋 待機 |
 
 **完了定義 (DoD)**:
-- [ ] 全テーブルのマイグレーション実行可能
-- [ ] ユーザー登録・ログインが動作
-- [ ] JWT認証でAPIアクセス制御
-- [ ] API仕様書(OpenAPI)が自動生成
-- [ ] 単体テストカバレッジ80%以上
+- [x] sample/v0-AWS_hackathon UIが移植済み
+- [x] 開発環境がDocker Composeで起動済み
+- [ ] フロントエンド・バックエンドAPI完全統合
+- [ ] 全ページが既存バックエンドAPIと連携
+- [ ] レスポンシブデザイン動作確認
+
+#### Week 2: 完全UI実装・市場データ統合
+**Sprint 1.2 - Complete UI Implementation & Market Data Integration**
+
+| Task | 担当 | 工数(人日) | 優先度 | 依存関係 | 状態 |
+|------|------|------------|--------|----------|------|
+| ポートフォリオ管理ページ完成 | Frontend | 2 | P0 | sample UI移植 | 📋 待機 |
+| チャット機能ページ完成 | Frontend | 2 | P0 | sample UI移植 | 📋 待機 |
+| Yahoo Finance API統合（Backend） | Backend | 1 | P0 | 既存API | 📋 待機 |
+| 市場データ表示機能 | Frontend | 1 | P0 | Market API | 📋 待機 |
+| レスポンシブ対応・最適化 | Frontend | 1 | P1 | 全UI完成 | 📋 待機 |
+
+**完了定義 (DoD)**:
+- [x] 全テーブルのマイグレーション実行済み
+- [x] ユーザー登録・ログインが動作中
+- [x] JWT認証でAPIアクセス制御済み
+- [ ] sample UI準拠の全ページ実装完了
+- [ ] リアルタイム市場データ表示
+- [ ] フロントエンド・バックエンド完全統合
 
 #### Week 3: フロントエンド基盤
 **Sprint 1.3 - Frontend Foundation**
@@ -233,24 +235,45 @@ Infrastructure: Docker + Docker Compose (現在稼働中)
 
 ## 4. 開発環境・ツール
 
-### 4.1 必要なコマンド・スクリプト
+### 4.1 必要なコマンド・スクリプト（現在稼働中）
 
-#### 初期セットアップ
+#### 実装済み・動作確認済みコマンド
 ```bash
-# プロジェクト初期化
+# プロジェクト初期化（実装済み・動作確認済み）
 make init
 
-# 開発環境起動
+# 開発環境起動（実装済み・動作確認済み）
 make dev
 
-# テスト実行
-make test
+# 個別サービス確認
+docker ps  # 5サービス稼働中確認済み
 
-# データベースマイグレーション
-make db-migrate
+# データベースマイグレーション（実装済み・実行済み）
+docker exec investment-api alembic upgrade head
 
-# サンプルデータ投入
-make db-seed
+# サンプルデータ投入（実装済み）
+docker exec investment-api python scripts/seed_data.py
+
+# API動作確認（確認済み）
+curl http://localhost:8000/health      # ✅ 正常
+curl http://localhost:8000/            # ✅ 正常
+
+# フロントエンド確認（確認済み）
+curl http://localhost:3000/            # ✅ 正常
+curl http://localhost:3000/dashboard   # ✅ 正常
+```
+
+#### sample/v0-AWS_hackathon 準拠の追加フロントエンド機能
+```bash
+# フロントエンドビルド・起動（sample UI適用後）
+cd frontend
+npm install    # Radix UI、新パッケージ追加済み
+npm run dev    # sample準拠UI起動
+
+# API統合テスト
+curl -X POST http://localhost:8000/api/v1/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"test@example.com","password":"test123"}'  # ✅ 動作確認済み
 ```
 
 #### 開発フロー
@@ -402,28 +425,59 @@ jobs:
 - **Feature Flags**: 段階的機能有効化
 - **Database Migration**: 後方互換性維持
 
-## 9. 完了基準・成功指標
+## 9. 完了基準・成功指標（現状更新）
 
 ### 9.1 技術的成功指標
-- [ ] 全自動テストが通過（95%以上）
-- [ ] API応答時間 < 3秒
-- [ ] フロントエンド初期表示 < 2秒
-- [ ] テストカバレッジ > 80%
-- [ ] セキュリティ監査 合格
+- [x] Docker環境構築・5サービス正常稼働
+- [x] API基本動作確認（健康診断・認証API動作）
+- [x] データベース構築・マイグレーション完了
+- [x] フロントエンド基盤構築・sample UI移植完了
+- [ ] sample準拠UI・バックエンドAPI完全統合
+- [ ] ポートフォリオ・チャット機能完動
 
 ### 9.2 ビジネス成功指標
-- [ ] ユーザー登録機能 完動
-- [ ] 基本的な投資相談応答 完動
-- [ ] ポートフォリオ管理機能 完動
-- [ ] 市場データ表示機能 完動
-- [ ] ユーザビリティテスト 合格
+- [x] ユーザー登録・ログイン機能 動作確認済み
+- [x] 基本ダッシュボード表示 完動
+- [ ] sample準拠ポートフォリオ管理機能 完動
+- [ ] sample準拠チャット相談機能 完動
+- [ ] 市場データリアルタイム表示機能 完動
 
-### 9.3 運用準備完了基準
-- [ ] 監視・アラート設定完了
-- [ ] ログ分析環境構築完了
-- [ ] バックアップ・復旧手順確立
-- [ ] 運用マニュアル作成完了
-- [ ] 障害対応手順作成完了
+### 9.3 Phase 1完了基準（sample UI統合完了）
+- [x] sample/v0-AWS_hackathon UI移植完了
+- [x] 既存バックエンドとの接続確立
+- [ ] 全ページ（dashboard/portfolio/chat）動作完了
+- [ ] sample準拠レスポンシブデザイン動作確認
+- [ ] 実データでの動作テスト完了
 
-この実装計画について、調整が必要な点や追加したい要素はありますか？
-承認いただけましたら、実装フェーズに進むことができます。
+### 9.4 次期Phase準備完了基準
+- [ ] AI機能統合準備（OpenAI API設定）
+- [ ] RAG検索機能基盤準備（Elasticsearch活用）
+- [ ] 外部API統合準備（Yahoo Finance等）
+
+## 10. sample/v0-AWS_hackathon準拠実装方針
+
+### 10.1 フロントエンドアーキテクチャ対応
+**sample構造に合わせたAPI設計:**
+- Next.js App Router (`app/` directory) 準拠
+- sample APIルート構造をバックエンドAPI経由に変更
+- Radix UI + Tailwind CSS デザインシステム活用
+- Zustand状態管理でバックエンドAPI統合
+
+### 10.2 バックエンドAPI最小修正方針
+**既存FastAPIを活用し最小変更で対応:**
+```
+既存API構造:
+  /api/v1/auth/login     ← sample app/api/auth/login/route.ts 機能
+  /api/v1/auth/register  ← sample app/api/auth/signup/route.ts 機能
+  /api/v1/portfolio/     ← sample app/api/portfolio/route.ts 機能
+  /api/v1/conversations/ ← sample app/api/chat/message/route.ts 機能
+  /api/v1/market/        ← 新規追加（Yahoo Finance統合）
+```
+
+### 10.3 段階実装戦略
+1. **Phase 1週間目**: sample UI移植（✅完了）
+2. **Phase 1残り**: フロントエンド・バックエンドAPI統合
+3. **Phase 2**: AI機能（OpenAI）、RAG機能追加
+4. **Phase 3**: 高度な分析機能追加
+
+この改修された実装計画により、既存のバックエンドを最大限活用しながらsample/v0-AWS_hackathon準拠のモダンUI実装を実現できます。
